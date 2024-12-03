@@ -1,7 +1,8 @@
 from Twenty48ClassesAndMethods import *
+import random
 #grid[][], Rows are the first brackets. collems are the second
 
-def runGame():
+def runAIGame():
     testGame1 = Twenty48Game()
     testGame1.generateNewBlock()
 
@@ -9,22 +10,22 @@ def runGame():
     running = True
 
     while running:
-        playerInput = getPlayerImput()
-        match playerInput:
-            case "d":
+        rand = random.randint(1,4)
+        match rand:
+            case 1:
                 testGame1.moveRight()
-            case "a":
+            case 2:
                 testGame1.moveLeft()
-            case "w":
+            case 3:
                 testGame1.moveUp()
-            case "s":
+            case 4:
                 testGame1.moveDown()
         
         testGame1.generateNewBlock()
-        print(testGame1)
+        print(testGame1,"\n")
         # if not checkLoss(testGame1):
         #     running = False
 
     print("\n\nYOU LOST")
 
-runGame()
+runAIGame()

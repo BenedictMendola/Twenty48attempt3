@@ -110,20 +110,27 @@ class Twenty48Game(): # this is what will contain all the data and have methods 
             self.grid[row + 1][col] = blockValue * 2
             self.grid[row][col] = 0
         
+    def checkSameGrid(self,other):
+        for i in range(4):
+            for j in range(4):
+                if (self.grid[i][j] != other.grid[i][j]):
+                    return False
+        return True
+    
 def checkLoss(realGame : Twenty48Game): # create a new instance and see if any possible moves will change it
     tempGame : Twenty48Game = Twenty48Game()
     tempGame.grid = realGame.grid
     tempGame = tempGame.moveUp()
-    if(tempGame != realGame):
+    if(tempGame.checkSameGrid(realGame)):
         return True
     tempGame = tempGame.moveDown()
-    if(tempGame != realGame):
+    if(tempGame.checkSameGrid(realGame)):
         return True
     tempGame = tempGame.moveLeft()
-    if(tempGame != realGame):
+    if(tempGame.checkSameGrid(realGame)):
         return True
     tempGame = tempGame.moveRight()
-    if(tempGame != realGame):
+    if(tempGame.checkSameGrid(realGame)):
         return True
     return False
 
@@ -141,21 +148,23 @@ def checkMoveValidity(realGame : Twenty48Game,move:str):
     match move:
         case "w":
             tempGame = tempGame.moveUp()
-            if(tempGame.grid == realGame.grid):
+            if(tempGame.checkSameGrid(realGame)):
                 return False
         case "d":
             tempGame = tempGame.moveRight()
-            if(tempGame.grid == realGame.grid):
+            if(tempGame.checkSameGrid(realGame)):
                 return False
         case "s":
             tempGame = tempGame.moveDown()
-            if(tempGame.grid == realGame.grid):
+            if(tempGame.checkSameGrid(realGame)):
                 return False
         case "a":
             tempGame = tempGame.moveLeft()
-            if(tempGame.grid == realGame.grid):
+            if(tempGame.checkSameGrid(realGame)):
                 return False
     return True
+
+
         
 
 
