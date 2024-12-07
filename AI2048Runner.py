@@ -14,7 +14,7 @@ def getAIPick(realGame: Twenty48Game):
         case 4:
             randLetter = "a"
     if not checkMoveValidity(realGame,randLetter):
-        return(getAIPick())
+        return(getAIPick(realGame))
 
     return randLetter
 
@@ -44,6 +44,8 @@ def runAIGame():
         #     running = False
         if checkLoss(testGame1):
             running = False
-    print("\n\nYOU LOST")
 
-runAIGame()
+    print("\n\nAI LOST")
+    return testGame1.score
+
+print(f"Final Score : {runAIGame()}")

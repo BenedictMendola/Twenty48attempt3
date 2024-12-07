@@ -26,5 +26,6 @@ def runGame():
         #     running = False
 
     print("\n\nYOU LOST")
+    return testGame1.score
 
-runGame()
+print(f"Final Score : {runGame()}")
