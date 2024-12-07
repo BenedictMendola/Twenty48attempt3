@@ -1,6 +1,22 @@
 from Twenty48ClassesAndMethods import *
 import random
 #grid[][], Rows are the first brackets. collems are the second
+def getAIPick(realGame: Twenty48Game):
+    rand = random.randint(1,4)
+    randLetter = ""
+    match rand:
+        case 1:
+            randLetter = "w"
+        case 2:
+            randLetter = "d"
+        case 3:
+            randLetter = "s"
+        case 4:
+            randLetter = "a"
+    if not checkMoveValidity(realGame,randLetter):
+        return(getAIPick())
+
+    return randLetter
 
 def runAIGame():
     testGame1 = Twenty48Game()
@@ -10,22 +26,24 @@ def runAIGame():
     running = True
 
     while running:
-        rand = random.randint(1,4)
+        rand : str = getAIPick(testGame1)
+                
         match rand:
-            case 1:
+            case "d":
                 testGame1.moveRight()
-            case 2:
+            case "a":
                 testGame1.moveLeft()
-            case 3:
+            case "w":
                 testGame1.moveUp()
-            case 4:
+            case "s":
                 testGame1.moveDown()
         
         testGame1.generateNewBlock()
         print(testGame1,"\n")
         # if not checkLoss(testGame1):
         #     running = False
-
+        if checkLoss(testGame1):
+            running = False
     print("\n\nYOU LOST")
 
 runAIGame()

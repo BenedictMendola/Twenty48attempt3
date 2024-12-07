@@ -9,7 +9,7 @@ def runGame():
     running = True
 
     while running:
-        playerInput = getPlayerImput()
+        playerInput = getPlayerImput(testGame1)
         match playerInput:
             case "d":
                 testGame1.moveRight()

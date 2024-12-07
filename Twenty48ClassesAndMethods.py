@@ -44,6 +44,7 @@ class Twenty48Game(): # this is what will contain all the data and have methods 
                 value = self.grid[i][3-j]
                 if value != 0:
                     self.moveBlockRight(value,i,3-j)
+        return self
     
     def moveBlockRight(self,blockValue:int,row:int,col:int):
         if(col + 1 > 3):
@@ -62,6 +63,7 @@ class Twenty48Game(): # this is what will contain all the data and have methods 
                 value = self.grid[i][j]
                 if value != 0:
                     self.moveBlockLeft(value,i,j)
+        return self
     
     def moveBlockLeft(self,blockValue:int,row:int,col:int):
         if (col < 1):
@@ -80,6 +82,7 @@ class Twenty48Game(): # this is what will contain all the data and have methods 
                 value = self.grid[i][j]
                 if value != 0:
                     self.moveBlockUp(value,i,j)
+        return self
 
     def moveBlockUp(self,blockValue:int,row:int,col:int):
         if (row < 1):
@@ -98,6 +101,7 @@ class Twenty48Game(): # this is what will contain all the data and have methods 
                 value = self.grid[3-i][j]
                 if value != 0:
                     self.moveBlockDown(value,3-i,j)
+        return self
     
     def moveBlockDown(self,blockValue:int,row:int,col:int):
         if(row + 1 > 3):
@@ -118,54 +122,67 @@ class Twenty48Game(): # this is what will contain all the data and have methods 
         return True
     
 def checkLoss(realGame : Twenty48Game): # create a new instance and see if any possible moves will change it
-    tempGame : Twenty48Game = Twenty48Game()
-    tempGame.grid = realGame.grid
-    tempGame = tempGame.moveUp()
-    if(tempGame.checkSameGrid(realGame)):
-        return True
-    tempGame = tempGame.moveDown()
-    if(tempGame.checkSameGrid(realGame)):
-        return True
-    tempGame = tempGame.moveLeft()
-    if(tempGame.checkSameGrid(realGame)):
-        return True
-    tempGame = tempGame.moveRight()
-    if(tempGame.checkSameGrid(realGame)):
-        return True
+
     return False
 
-def getPlayerImput():
+def getPlayerImput(playerGame):
     playerImput = input("w a s d?   ")
-    while playerImput not in ["w","a","s","d"] and not checkMoveValidity(playerImput):
+    while playerImput not in ["w","a","s","d"] or not checkMoveValidity(playerGame,playerImput):
         playerImput = input("enterValidImput:   ")
-        print("\n")
     return playerImput
 
-def checkMoveValidity(realGame : Twenty48Game,move:str):
-    tempGame = Twenty48Game()
-    tempGame.grid = realGame.grid
-
+def checkMoveValidity(realGame : Twenty48Game,move : str):
     match move:
-        case "w":
-            tempGame = tempGame.moveUp()
-            if(tempGame.checkSameGrid(realGame)):
-                return False
         case "d":
-            tempGame = tempGame.moveRight()
-            if(tempGame.checkSameGrid(realGame)):
-                return False
-        case "s":
-            tempGame = tempGame.moveDown()
-            if(tempGame.checkSameGrid(realGame)):
-                return False
+            if checkMoveValidRight(realGame):
+                return True
         case "a":
-            tempGame = tempGame.moveLeft()
-            if(tempGame.checkSameGrid(realGame)):
-                return False
-    return True
+            if checkMoveValidLeft(realGame):
+                return True
+        case "w":
+            if checkMoveValidUp(realGame):
+                return True
+        case "s":
+            if checkMoveValidity(realGame):
+                return True
 
+    return False
 
+def checkEmpty(realGame : Twenty48Game):
+    for row in range(4):
+        for col in range(4):
+            if realGame.grid[col][row] == 0:
+                return True
+    return False
+
+def checkMoveValidRight(realGame: Twenty48Game):
+    for row in range(4):
+        for col in range(3):
+            if (realGame.grid[row][col] == realGame.grid[row][col + 1]):
+                return True
+    return False
+
+def checkMoveValidLeft(realGame: Twenty48Game):
+    for row in range(4):
+        for col in range(1,4):
+            if realGame.grid[row][col] == realGame.grid[row][col -1]:
+                return True
+    return False
+
+def checkMoveValidUp(realGame : Twenty48Game):
+    for row in range (3):
+        for col in range(4):
+            if realGame.grid[row][col] == realGame.grid[row+1][col]:
+                return True
+    return False
+
+def checkMoveValidUp(realGame : Twenty48Game):
+    for row in range (1,4):
+        for col in range(4):
+            if realGame.grid[row][col] == realGame.grid[row-1][col]:
+                return True
+    return False
         
-
+def compareSpots(row1:int, col1: int, row2 : int, col2 : int):
 
 
