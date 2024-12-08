@@ -60,8 +60,8 @@ def getAIPick(realGame: Twenty48Game,network : Twenty48Network):
     while not checkMoveValidity(realGame,pick):
         repeats += 1
         pick = network.calculateMove(realGame,repeats)
-        if repeats > 2:
-            network.score -= 10
+        if repeats > 5:
+            network.score -= 5
             network.randomGuesses += 1
             return getRandPick(realGame)
     network.moves += 1

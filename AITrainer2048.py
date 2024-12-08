@@ -20,8 +20,8 @@ def mutate(network: Twenty48Network):
     for layer in network.layers:
         for node in layer:
             for weight in node:
-                if random.randint(0,10) < 4:
-                    weight = weight * random.uniform(.9,1.1)
+                if random.randint(0,10) < 2:
+                    weight = weight * random.uniform(.8,1.2)
 
 
 def mutateHalf(networkToMutate):
@@ -34,7 +34,7 @@ highscore = 0
 networks = createRandomNetworks()
 
 try: 
-    for i in range(10):
+    for i in range(50):
         networks[i] = LoadNetwork(i+1)
 except: 
     print("CouldNotLoadNetwork")
@@ -70,7 +70,7 @@ while running:
 
     networks = networks[0:int(len(networks)/2)] + otherHalf
     
-    for i in range(10):
+    for i in range(50):
         SaveNetwork(i+1,networks[i])
 
     for network in networks:
