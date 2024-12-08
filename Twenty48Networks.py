@@ -27,72 +27,40 @@ class Twenty48Network:
         fourthLayerCalculated = calculateLayer(thirdLayerCalculated,self.layers[3])
         fourFinalNodes = calculateLayer(fourthLayerCalculated,self.layers[4])
 
-        pick = fourFinalNodes.index(max(fourFinalNodes))
+        wWeight = fourFinalNodes[0]
+        dWeight = fourFinalNodes[1]
+        sWeight = fourFinalNodes[2]
+        aWeight = fourFinalNodes[3]
         
-        pickLetter = ""
-        match pick:
-            case 0:
-                pickLetter = "w"
-            case 1:
-                pickLetter = "d"
-            case 2:
-                pickLetter= "s"
-            case 3:
-                pickLetter = "d"
+        finalNodesSorted = sorted(fourFinalNodes,reverse=True)
+        for i in range(4):
+            if wWeight == finalNodesSorted[i]:
+                if checkMoveValidity(realGame,'w'):
+                    return 'w'
+            elif dWeight == finalNodesSorted[i]:
+                if checkMoveValidity(realGame,'d'):
+                    return 'd'    
+            elif sWeight == finalNodesSorted[i]:
+                if checkMoveValidity(realGame,'s'):
+                    return 's'    
+            elif aWeight == finalNodesSorted[i]:
+                if checkMoveValidity(realGame,'a'):
+                    return 'a'                    
+
         
-        if checkMoveValidity(realGame,pickLetter):
-            return pickLetter
+
+        # match pick:
+        #     case 0:
+        #         pickLetter = "w"
+        #     case 1:
+        #         pickLetter = "d"
+        #     case 2:
+        #         pickLetter= "s"
+        #     case 3:
+        #         pickLetter = "d"
         
-        fourFinalNodes.pop(pick)
-        pick = fourFinalNodes.index(max(fourFinalNodes))
-        match pick:
-            case 0:
-                pickLetter = "w"
-            case 1:
-                pickLetter = "d"
-            case 2:
-                pickLetter= "s"
-            case 3:
-                pickLetter = "d"
-        if checkMoveValidity(realGame,pickLetter):
-            return pickLetter
-        fourFinalNodes.pop(pick)
-        pick = fourFinalNodes.index(max(fourFinalNodes))
-        match pick:
-            case 0:
-                pickLetter = "w"
-            case 1:
-                pickLetter = "d"
-            case 2:
-                pickLetter= "s"
-            case 3:
-                pickLetter = "d"
-        if checkMoveValidity(realGame,pickLetter):
-            return pickLetter
-        fourFinalNodes.pop(pick)
-        pick = fourFinalNodes.index(max(fourFinalNodes))
-        match pick:
-            case 0:
-                pickLetter = "w"
-            case 1:
-                pickLetter = "d"
-            case 2:
-                pickLetter= "s"
-            case 3:
-                pickLetter = "d"
-        if checkMoveValidity(realGame,pickLetter):
-            return pickLetter
-        pick = fourFinalNodes.index(max(fourFinalNodes))
-        match pick:
-            case 0:
-                pickLetter = "w"
-            case 1:
-                pickLetter = "d"
-            case 2:
-                pickLetter= "s"
-            case 3:
-                pickLetter = "d"
-        return pickLetter
+        
+        
 
             
     def __lt__(self,other):
