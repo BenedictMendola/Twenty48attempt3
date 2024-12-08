@@ -51,33 +51,41 @@ class Renderer():
         self.screen.blit(textSurface,(self.screen.get_width()/2 - textSurface.get_width()/2,self.screen.get_height()*.9))
 
         
-def getPick(game):
-    ready = False
-    while not ready:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                exit(1)
-            if event.type == pygame.KEYDOWN: 
-                print("Keydown")
-                if event.key == pygame.K_d: 
-                    if checkMoveValidity(game,"d"):
-                        return "d"
-                elif event.key == pygame.K_a:
-                    if checkMoveValidity(game,"a"):
-                        return "a"
-                elif event.key == pygame.K_s:
-                    if checkMoveValidity(game,"s"):
-                        return "s"
-                elif event.key == pygame.K_w:
-                    if checkMoveValidity(game,"w"):
-                        return "w"
-                elif event.key == pygame.K_ESCAPE: 
-                    print("Escape key")
-                    running = False
+
                     
 
+def getAIPick(realGame: Twenty48Game,network : Twenty48Network):
+    pick = network.calculateMove(realGame)
+    repeats = 0
+    while not checkMoveValidity(realGame,pick):
+        repeats += 1
+        pick = network.calculateMove(realGame,repeats)
+        if repeats > 2:
+            network.score -= 10
+            network.randomGuesses += 1
+            return getRandPick(realGame)
+    network.moves += 1
+    time.sleep(.05)
+    return pick
 
-def runGame():
+def getRandPick(realGame: Twenty48Game): # ONLY FOR EXTREAM CASES WHERE AI CANNOT MOVE AND IS STUCK ON ONE MOVE
+    rand = random.randint(1,4)
+    randLetter = ""
+    match rand:
+        case 1:
+            randLetter = "w"
+        case 2:
+            randLetter = "d"
+        case 3:
+            randLetter = "s"
+        case 4:
+            randLetter = "a"
+    if not checkMoveValidity(realGame,randLetter):
+        return(getRandPick(realGame))
+
+    return randLetter
+
+def runAIGame(network : Twenty48Network,AIPlaying = True):
     realStop = False
     pygame.init()
     renderer = Renderer((1280,720))
@@ -85,9 +93,9 @@ def runGame():
     testGame1 = Twenty48Game()
     testGame1.generateNewBlock()
     running = True
+
     while running:
-        renderer.renderFrame(testGame1)
-        pick : str = getPick(testGame1)
+        pick : str = getAIPick(testGame1,network)
                 
         match pick:
             case "d":
@@ -125,7 +133,11 @@ def runGame():
                 elif event.key == pygame.K_ESCAPE: 
                     realStop = False
         pygame.display.flip()
-    runGame()
+    runAIGame(LoadNetwork(1))
+
+    network.score += testGame1.score
+    network.realScore = testGame1.score
+    return network.score, testGame1.score
 
 if __name__ == "__main__":
-    runGame()
+    print(f"Final Score : {runAIGame(LoadNetwork(1),True)}")
