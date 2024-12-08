@@ -28,16 +28,72 @@ class Twenty48Network:
         fourFinalNodes = calculateLayer(fourthLayerCalculated,self.layers[4])
 
         pick = fourFinalNodes.index(max(fourFinalNodes))
-
+        
+        pickLetter = ""
         match pick:
             case 0:
-                return "w"
+                pickLetter = "w"
             case 1:
-                return "d"
+                pickLetter = "d"
             case 2:
-                return "s"
+                pickLetter= "s"
             case 3:
-                return "d"
+                pickLetter = "d"
+        
+        if checkMoveValidity(realGame,pickLetter):
+            return pickLetter
+        
+        fourFinalNodes.pop(pick)
+        pick = fourFinalNodes.index(max(fourFinalNodes))
+        match pick:
+            case 0:
+                pickLetter = "w"
+            case 1:
+                pickLetter = "d"
+            case 2:
+                pickLetter= "s"
+            case 3:
+                pickLetter = "d"
+        if checkMoveValidity(realGame,pickLetter):
+            return pickLetter
+        fourFinalNodes.pop(pick)
+        pick = fourFinalNodes.index(max(fourFinalNodes))
+        match pick:
+            case 0:
+                pickLetter = "w"
+            case 1:
+                pickLetter = "d"
+            case 2:
+                pickLetter= "s"
+            case 3:
+                pickLetter = "d"
+        if checkMoveValidity(realGame,pickLetter):
+            return pickLetter
+        fourFinalNodes.pop(pick)
+        pick = fourFinalNodes.index(max(fourFinalNodes))
+        match pick:
+            case 0:
+                pickLetter = "w"
+            case 1:
+                pickLetter = "d"
+            case 2:
+                pickLetter= "s"
+            case 3:
+                pickLetter = "d"
+        if checkMoveValidity(realGame,pickLetter):
+            return pickLetter
+        pick = fourFinalNodes.index(max(fourFinalNodes))
+        match pick:
+            case 0:
+                pickLetter = "w"
+            case 1:
+                pickLetter = "d"
+            case 2:
+                pickLetter= "s"
+            case 3:
+                pickLetter = "d"
+        return pickLetter
+
             
     def __lt__(self,other):
         return self.score < other.score

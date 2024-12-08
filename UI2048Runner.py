@@ -24,6 +24,8 @@ class Renderer():
         self.surfaceDict["512"] = pygame.image.load("Assets/Block512.png")
         self.surfaceDict["1024"] = pygame.image.load("Assets/Block1024.png")
         self.surfaceDict["2048"] = pygame.image.load("Assets/Block2048.png")
+        self.surfaceDict["4096"] = pygame.image.load("Assets/Block4096.png")
+        self.surfaceDict["8192"] = pygame.image.load("Assets/Block8192.png")
 
         pygame.font.init()
 
