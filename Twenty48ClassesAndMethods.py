@@ -128,7 +128,6 @@ class Twenty48Game(): # this is what will contain all the data and have methods 
     
 def checkLoss(realGame : Twenty48Game): # create a new instance and see if any possible moves will change it
     if checkEmpty(realGame): return False
-
     if checkMoveValidDown(realGame): return False
     if checkMoveValidLeft(realGame): return False
     if checkMoveValidRight(realGame): return False
