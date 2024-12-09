@@ -86,6 +86,7 @@ def runGame():
 
     testGame1 = Twenty48Game()
     testGame1.generateNewBlock()
+    testGame1.generateNewBlock()
     running = True
     renderer.renderFrame(testGame1)
     pygame.display.flip()
