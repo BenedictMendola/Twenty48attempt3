@@ -20,8 +20,10 @@ def mutate(network: Twenty48Network):
     for layer in network.layers:
         for node in layer:
             for weight in node:
-                if random.randint(0,10) < 2:
-                    weight = weight * random.uniform(.8,1.2)
+                if random.randint(0,3000) == 50:
+                    weight = weight * random.uniform(.5,1.5)
+                elif random.randint(0,100) < 20:
+                    weight = weight * random.uniform(.9,1.1)
 
 
 def mutateHalf(networkToMutate):
@@ -29,13 +31,13 @@ def mutateHalf(networkToMutate):
     [mutate(network) for network in newNetwork]
     return newNetwork
 
-highscore = 0
 
 networks = createRandomNetworks()
 
 try: 
     for i in range(50):
         networks[i] = LoadNetwork(i+1)
+    print("Loaded Networks")
 except: 
     print("CouldNotLoadNetwork")
 
@@ -45,22 +47,20 @@ running = True
 genNumber = 0
 while running:
     genNumber += 1
-    runGames(networks)
+    for i in range(10):
+        runGames(networks)
     networks = sorted(networks,reverse=True)
 
     sumOfScores = 0
     sumOfRealScores = 0
     for network in networks:
-        if (highscore < network.realScore):
-            highscore = network.realScore
         sumOfScores += network.score
         sumOfRealScores += network.realScore
-        print(f"Fitness: {network.score}, RealScore:{network.realScore}, Random Guess Precent: {round(network.randomGuesses/network.moves * 100,2)}%")
-    print(f"\nGen {genNumber} Average: {sumOfScores/len(networks)}")
-    print(f"Gen {genNumber} Real: {sumOfRealScores/len(networks)}")
-    print(f"Gen {genNumber} Median: {(networks[49].realScore+networks[50].realScore)/2}")
-    print(f"Highscore: {highscore}")
-    print(f"Best Of Gen: {networks[0].realScore}")
+        print(f"Avg Fitness: {network.score/10}, Avg RealScore:{network.realScore/10}")
+    print(f"\nGen {genNumber} Average: {(sumOfScores/len(networks))/10}")
+    print(f"Gen {genNumber} Real: {(sumOfRealScores/len(networks))/10}")
+    print(f"Gen {genNumber} Median: {(networks[49].realScore+networks[50].realScore)/20}")
+    print(f"Best Of Gen: {networks[0].realScore/10}")
     
 
 
@@ -75,6 +75,5 @@ while running:
 
     for network in networks:
         network.score = 0
-        network.randomGuesses = 0
-        network.moves = 0
+        network.realScore = 0
 

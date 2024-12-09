@@ -39,7 +39,7 @@ def runAIGame(network : Twenty48Network):
     if __name__ == "__main__":
         print("\n\nAI LOST")
     network.score += testGame1.score
-    network.realScore = testGame1.score
+    network.realScore += testGame1.score
     return network.score, testGame1.score
 
 if __name__ == "__main__":

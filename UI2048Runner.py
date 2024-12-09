@@ -58,6 +58,7 @@ class Renderer():
 def getAIPick(realGame: Twenty48Game,network : Twenty48Network):
     pick = network.calculateMove(realGame)
     network.moves += 1
+    time.sleep(.05) # CHANGE SPEED TO MAKE VEIWING EASIER
     return pick
 
 def runAIGame(network : Twenty48Network,AIPlaying = True):
