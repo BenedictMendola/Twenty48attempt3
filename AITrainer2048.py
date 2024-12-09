@@ -21,9 +21,9 @@ def mutate(network: Twenty48Network):
         for node in layer:
             for weight in node:
                 if random.randint(0,3000) == 50:
-                    weight = weight * random.uniform(.5,1.5)
-                elif random.randint(0,100) < 20:
                     weight = weight * random.uniform(.9,1.1)
+                elif random.randint(0,100) < 20:
+                    weight = weight * random.uniform(.98,1.02)
 
 
 def mutateHalf(networkToMutate):

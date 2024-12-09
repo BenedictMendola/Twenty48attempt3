@@ -1,5 +1,6 @@
 from Twenty48ClassesAndMethods import *
 from Twenty48Networks import Twenty48Network
+from Twenty48Networks import LoadNetwork
 
 
 #grid[][], Rows are the first brackets. collems are the second
@@ -43,4 +44,4 @@ def runAIGame(network : Twenty48Network):
     return network.score, testGame1.score
 
 if __name__ == "__main__":
-    print(f"Final Score : {runAIGame(Twenty48Network())}")
+    print(f"Final Score : {runAIGame(LoadNetwork(1))}")
